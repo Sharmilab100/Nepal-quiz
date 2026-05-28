@@ -55,7 +55,7 @@
       position:fixed;
       top:50%; left:50%;
       transform:translate(-50%,-50%);
-      background:#b30000;
+      background:#007bff;
       color:white;
       padding:20px;
       border-radius:10px;
@@ -66,6 +66,22 @@
     #messageBox.show {
       display:block;
       opacity:1;
+    }
+
+    /* ✅ SMALL HIDDEN RESET BUTTON */
+    #resetBtn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 5px 8px;
+      font-size: 12px;
+      background-color: #444;
+      opacity: 0.5;
+      border-radius: 6px;
+    }
+
+    #resetBtn:hover {
+      opacity: 1;
     }
   </style>
 
@@ -136,7 +152,7 @@
       document.getElementById("playersList").innerHTML = list;
     }
 
-    /* ✅ RESET FUNCTION (ADDED ONLY) */
+    /* ✅ RESET FUNCTION (already used by hidden button) */
     function resetPlayers(){
       if(confirm("Reset all previous scores?")){
         localStorage.removeItem("players");
@@ -158,9 +174,9 @@
 
     function checkBonus(answer){
       if(answer==="correct"){
-        showMessage("✅ Correct! 🎉<br><br>Explore more about Nepal 🇳🇵");
+        showMessage("✅ Correct! 🎉<br><br>Explore more about Nepal");
       } else {
-        showMessage("❌ Wrong answer!<br><br>Explore more about Nepal 🇳🇵");
+        showMessage("❌ Wrong answer!<br><br>Explore more about Nepal");
       }
 
       document.getElementById("extraFacts").style.display="block";
@@ -173,6 +189,9 @@
 </head>
 
 <body>
+
+<!-- ✅ HIDDEN RESET BUTTON TOP RIGHT -->
+<button onclick="resetPlayers()" id="resetBtn">⚙️</button>
 
 <h1>Nepal Fun Quiz 🎉</h1>
 <h2>🏔️ Explore Nepal Through Fun</h2>
@@ -196,9 +215,9 @@
   <div id="q2" style="display:none;">
     <p>2. Where was Buddha born?</p>
     <button onclick="correct()">Lumbini, Nepal</button>
-    <button onclick="wrong()">Beijing</button>
-    <button onclick="wrong()">Delhi</button>
-    <button onclick="wrong()">Bhutan</button>
+    <button onclick="wrong()">Beijing, China</button>
+    <button onclick="wrong()">Delhi, India</button>
+    <button onclick="wrong()">Thimphu, Bhutan</button>
   </div>
 
   <div id="q3" style="display:none;">
@@ -233,25 +252,25 @@
 
 <div id="funfacts" style="display:none;">
   <p>🏔️ Mount Everest</p>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Mount_Everest%2C_Nepal%2C_Himalayas.jpg">
+  https://upload.wikimedia.org/wikipedia/commons/5/5c/Mount_Everest%2C_Nepal%2C_Himalayas.jpg
 
   <p>🙏 Buddha (Lumbini)</p>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Lumbini_Birth_Place_of_Goutam_Budhha_01.jpg/960px-Lumbini_Birth_Place_of_Goutam_Budhha_01.jpg">
+  https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Lumbini_Birth_Place_of_Goutam_Budhha_01.jpg/960px-Lumbini_Birth_Place_of_Goutam_Budhha_01.jpg
 
   <p>⛰️ Himalayan Range</p>
-  <img src="https://cdn.pixabay.com/photo/2019/12/13/08/21/gokyo-ri-4692458_1280.jpg">
+  https://cdn.pixabay.com/photo/2019/12/13/08/21/gokyo-ri-4692458_1280.jpg
 
   <p>🥟 Momos</p>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Momo_nepal.jpg">
+  https://upload.wikimedia.org/wikipedia/commons/a/a1/Momo_nepal.jpg
 </div>
 
 <div id="bonus" style="display:none;">
   <h2>🎁 Bonus Question</h2>
   <p>Which one is Nepal’s flag? click on the flag</p>
 
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Flag_of_Cuba.svg/960px-Flag_of_Cuba.svg.png" onclick="checkBonus('wrong')">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_Nepal.svg/960px-Flag_of_Nepal.svg.png" onclick="checkBonus('correct')">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Flag_of_North_Korea.svg/960px-Flag_of_North_Korea.svg.png" onclick="checkBonus('wrong')">
+  https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Flag_of_Cuba.svg/960px-Flag_of_Cuba.svg.png
+  https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_Nepal.svg/960px-Flag_of_Nepal.svg.png
+  https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Flag_of_North_Korea.svg/960px-Flag_of_North_Korea.svg.png
 </div>
 
 <div id="extraFacts" style="display:none;">
@@ -269,10 +288,6 @@
   <p>🗣️ Nepal is incredibly diverse, with over 120 different languages spoken across the country.</p>
 
   <div id="playersList"></div>
-
-  <!-- ✅ RESET BUTTON ADDED -->
-  <button onclick="resetPlayers()">Reset All Players</button>
-
 </div>
 
 <div id="messageBox">
