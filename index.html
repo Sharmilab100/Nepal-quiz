@@ -13,6 +13,16 @@
       color: white;
     }
 
+    /* ✅ BABY BLUE OVERLAY */
+    body::before {
+      content: "";
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background-color: rgba(100, 170, 255, 0.4);
+      z-index:-1;
+    }
+
     h1 { color:#90ee90; text-shadow:2px 2px 5px black; }
 
     button {
@@ -58,6 +68,21 @@
       display:block;
       opacity:1;
     }
+
+    /* ✅ RESET BUTTON (TOP RIGHT) */
+    #resetBtn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+      background:#444;
+      color:white;
+      opacity:0.5;
+      border-radius:6px;
+    }
+
+    #resetBtn:hover { opacity:1; }
   </style>
 
   <script>
@@ -65,8 +90,6 @@
     let currentQuestion = 1;
 
     let playerName = "";
-
-    // ✅ KEEP SCORES (NO AUTO RESET)
     let players = JSON.parse(localStorage.getItem("players")) || [];
 
     function startQuiz(){
@@ -128,6 +151,15 @@
       document.getElementById("playersList").innerHTML = list;
     }
 
+    /* ✅ RESET FUNCTION */
+    function resetPlayers(){
+      if(confirm("Reset all previous scores?")){
+        localStorage.removeItem("players");
+        players = [];
+        displayPlayers();
+      }
+    }
+
     function showMessage(text){
       document.getElementById("messageText").innerHTML=text;
       document.getElementById("messageBox").classList.add("show");
@@ -156,6 +188,9 @@
 </head>
 
 <body>
+
+<!-- ✅ RESET BUTTON -->
+<button onclick="resetPlayers()" id="resetBtn">⚙️</button>
 
 <h1>Nepal Fun Quiz 🎉</h1>
 <h2>🏔️ Explore Nepal Through Fun</h2>
