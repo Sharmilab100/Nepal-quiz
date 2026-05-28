@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nepal Fun Quiz 🇳🇵</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-image: url("https://images.unsplash.com/photo-1544735716-392fe2489ffa");
+      background-size: cover;
+      background-position: center;
+      color: white;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background-color: rgba(0, 80, 0, 0.7);
+      z-index:-1;
+    }
+
+    h1 { color:#90ee90; text-shadow:2px 2px 5px black; }
+
+    button {
+      margin:8px; padding:12px;
+      font-size:16px;
+      border-radius:8px;
+      border:none;
+      background:#2e8b57;
+      color:white;
+    }
+
+    button:hover { background:#3cb371; }
+
+    img {
+      width:260px;
+      margin:10px;
+      border-radius:10px;
+      border:3px solid white;
+      cursor:pointer;
+    }
+
+    input {
+      padding:10px;
+      font-size:16px;
+      border-radius:8px;
+      border:none;
+    }
+
+    #messageBox {
+      display:none;
+      position:fixed;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      background:#b30000;
+      color:white;
+      padding:20px;
+      border-radius:10px;
+      opacity:0;
+      transition:opacity 0.5s ease;
+    }
+
+    #messageBox.show {
+      display:block;
+      opacity:1;
+    }
+  </style>
+
+  <script>
+    let score = 0;
+    let currentQuestion = 1;
+
+    let playerName = "";
+
+    // ✅ KEEP SCORES (NO AUTO RESET)
+    let players = JSON.parse(localStorage.getItem("players")) || [];
+
+    function startQuiz(){
+      playerName = document.getElementById("nameInput").value;
+
+      if(playerName.trim() === ""){
+        alert("Please enter your name 😊");
+        return;
+      }
+
+      document.getElementById("startScreen").style.display = "none";
+      document.getElementById("quiz").style.display = "block";
+    }
+
+    function correct(){ score++; nextQuestion(); }
+    function wrong(){ nextQuestion(); }
+
+    function nextQuestion(){
+      document.getElementById("q"+currentQuestion).style.display="none";
+      currentQuestion++;
+
+      if(currentQuestion<=5){
+        document.getElementById("q"+currentQuestion).style.display="block";
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult(){
+      document.getElementById("quiz").style.display="none";
+      document.getElementById("result").style.display="block";
+
+      let message =
+        score===5 ? "🏆 Excellent! Nepal Expert!" :
+        score>=3 ? "👏 Great job!" :
+        "😊 Try again!";
+
+      document.getElementById("score").innerHTML =
+        playerName + ", Your Score: " + score + "/5<br>" + message;
+
+      document.getElementById("funfacts").style.display="block";
+      document.getElementById("bonus").style.display="block";
+
+      players.push({name: playerName, score: score});
+      localStorage.setItem("players", JSON.stringify(players));
+
+      displayPlayers();
+    }
+
+    function displayPlayers(){
+      let list = "<h3>🏆 Players Scoreboard:</h3>";
+
+      players.sort((a,b)=>b.score-a.score);
+
+      players.forEach(function(p,index){
+        list += (index+1)+". "+p.name+" - "+p.score+"/5<br>";
+      });
+
+      document.getElementById("playersList").innerHTML = list;
+    }
+
+    function showMessage(text){
+      document.getElementById("messageText").innerHTML=text;
+      document.getElementById("messageBox").classList.add("show");
+    }
+
+    function closeMessage(){
+      let box=document.getElementById("messageBox");
+      box.classList.remove("show");
+      setTimeout(()=>{ box.style.display="none"; },300);
+    }
+
+    function checkBonus(answer){
+      if(answer==="correct"){
+        showMessage("✅ Correct! 🎉<br><br>Explore more about Nepal 🇳🇵");
+      } else {
+        showMessage("❌ Wrong answer!<br><br>Explore more about Nepal 🇳🇵");
+      }
+
+      document.getElementById("extraFacts").style.display="block";
+    }
+
+    window.onload = function(){
+      displayPlayers();
+    };
+  </script>
+</head>
+
+<body>
+
+<h1>Nepal Fun Quiz 🎉</h1>
+<h2>🏔️ Explore Nepal Through Fun</h2>
+
+<div id="startScreen">
+  <h2>Enter Your Name</h2>
+  <input type="text" id="nameInput" placeholder="Your name">
+  <br><br>
+  <button onclick="startQuiz()">Start Quiz ▶️</button>
+</div>
+
+<div id="quiz" style="display:none;">
+  <div id="q1">
+    <p>1. What is the capital of Nepal?</p>
+    <button onclick="wrong()">Pokhara</button>
+    <button onclick="correct()">Kathmandu</button>
+    <button onclick="wrong()">Lumbini</button>
+    <button onclick="wrong()">Chitwan</button>
+  </div>
+
+  <div id="q2" style="display:none;">
+    <p>2. Where was Buddha born?</p>
+    <button onclick="correct()">Lumbini, Nepal</button>
+    <button onclick="wrong()">Beijing</button>
+    <button onclick="wrong()">Delhi</button>
+    <button onclick="wrong()">Bhutan</button>
+  </div>
+
+  <div id="q3" style="display:none;">
+    <p>3. What is the tallest mountain in the world?</p>
+    <button onclick="wrong()">K2</button>
+    <button onclick="wrong()">Kosciuszko</button>
+    <button onclick="correct()">Everest</button>
+    <button onclick="wrong()">Kangchenjunga</button>
+  </div>
+
+  <div id="q4" style="display:none;">
+    <p>4. Out of the 14 peaks above 8,000 meters in the world, how many are located in Nepal?</p>
+    <button onclick="wrong()">4</button>
+    <button onclick="wrong()">10</button>
+    <button onclick="wrong()">1</button>
+    <button onclick="correct()">8</button>
+  </div>
+
+  <div id="q5" style="display:none;">
+    <p>5. Popular Nepal food?</p>
+    <button onclick="correct()">Momo</button>
+    <button onclick="wrong()">Burger</button>
+    <button onclick="wrong()">Sushi</button>
+    <button onclick="wrong()">Pizza</button>
+  </div>
+</div>
+
+<div id="result" style="display:none;">
+  <h2 id="score"></h2>
+  <h3>🎉 Fun facts about Nepal:</h3>
+</div>
+
+<div id="funfacts" style="display:none;">
+  <p>🏔️ Mount Everest</p>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Mount_Everest%2C_Nepal%2C_Himalayas.jpg">
+
+  <p>🙏 Buddha (Lumbini)</p>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Lumbini_Birth_Place_of_Goutam_Budhha_01.jpg/960px-Lumbini_Birth_Place_of_Goutam_Budhha_01.jpg">
+
+  <p>⛰️ Himalayan Range</p>
+  <img src="https://cdn.pixabay.com/photo/2019/12/13/08/21/gokyo-ri-4692458_1280.jpg">
+
+  <p>🥟 Momos</p>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Momo_nepal.jpg">
+</div>
+
+<div id="bonus" style="display:none;">
+  <h2>🎁 Bonus Question</h2>
+  <p>Which one is Nepal’s flag? click on the flag</p>
+
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Flag_of_Cuba.svg/960px-Flag_of_Cuba.svg.png" onclick="checkBonus('wrong')">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_Nepal.svg/960px-Flag_of_Nepal.svg.png" onclick="checkBonus('correct')">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Flag_of_North_Korea.svg/960px-Flag_of_North_Korea.svg.png" onclick="checkBonus('wrong')">
+</div>
+
+<div id="extraFacts" style="display:none;">
+  <h2>Discover Nepal</h2>
+
+  <p>🏙️ Kathmandu Valley is rich in culture, temples, and UNESCO World Heritage Sites.</p>
+  <p>🌄 The Annapurna Circuit is one of the most famous trekking routes in the world.</p>
+  <p>🔥 The festival of Dashain is the biggest and most important in Nepal.</p>
+  <p>🧘 Nepal is popular for yoga, meditation, and spiritual tourism.</p>
+  <p>🍛 A common traditional meal is Dal Bhat (rice, lentils, and curry).</p>
+  <p>🎵 Nepali music and dance vary across different regions and cultures.</p>
+  <p>📸 Nepal is a top destination for trekking, hiking, and mountain photography.</p>
+  <p>🐅 Nepal is home to the endangered Bengal tiger.</p>
+  <p>🦏 One‑horned rhinos live in Chitwan National Park.</p>
+  <p>🗣️ Nepal is incredibly diverse, with over 120 different languages spoken across the country.</p>
+
+  <div id="playersList"></div>
+</div>
+
+<div id="messageBox">
+  <p id="messageText"></p>
+  <button onclick="closeMessage()">OK</button>
+</div>
+
+</body>
+</html>
