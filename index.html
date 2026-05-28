@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Nepal Fun Quiz 🇳🇵</title>
+  <title>Fun Quiz About Nepal</title>
 
   <style>
     body {
@@ -11,15 +11,6 @@
       background-size: cover;
       background-position: center;
       color: white;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background-color: rgba(0, 80, 0, 0.7);
-      z-index:-1;
     }
 
     h1 { color:#90ee90; text-shadow:2px 2px 5px black; }
@@ -150,9 +141,9 @@
 
     function checkBonus(answer){
       if(answer==="correct"){
-        showMessage("✅ Correct! 🎉<br><br>Explore more about Nepal");
+        showMessage("✅ Correct! 🎉<br><br>Explore more about Nepal (Scroll Down)");
       } else {
-        showMessage("❌ Wrong answer!<br><br>Explore more about Nepal");
+        showMessage("❌ Wrong answer!<br><br>Explore more about Nepal (Scroll Down)");
       }
 
       document.getElementById("extraFacts").style.display="block";
@@ -249,15 +240,17 @@
 <div id="extraFacts" style="display:none;">
   <h2>Discover Nepal</h2>
 
-  <p>🏙️ Kathmandu Valley is rich in culture, temples, and UNESCO World Heritage Sites.</p>
+  <p>🛕 Nepal is known as the “land of temples” because of its many historic temples and shrines.</p>
+  <p>🏙️ Kathmandu Valley is rich in culture, temples, and has seven UNESCO World Heritage Sites.</p>
+  <p>🧊 Nepal has extreme geography, from flat plains to the highest mountains on Earth.</p>
   <p>🌄 The Annapurna Circuit is one of the most famous trekking routes in the world.</p>
   <p>🔥 The festival of Dashain is the biggest and most important in Nepal.</p>
   <p>🧘 Nepal is popular for yoga, meditation, and spiritual tourism.</p>
   <p>🍛 A common traditional meal is Dal Bhat (rice, lentils, and curry).</p>
-  <p>🎵 Nepali music and dance vary across different regions and cultures.</p>
-  <p>📸 Nepal is a top destination for trekking, hiking, and mountain photography.</p>
+  <p>🧗 Nepal is a world-famous destination for trekking and mountain climbing.</p>
   <p>🐅 Nepal is home to the endangered Bengal tiger.</p>
   <p>🦏 One‑horned rhinos live in Chitwan National Park.</p>
+  <p>🐼 Nepal is also home to the rare and endangered red panda.</p>
   <p>🗣️ Nepal is incredibly diverse, with over 120 different languages spoken across the country.</p>
 
   <div id="playersList"></div>
