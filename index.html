@@ -75,7 +75,6 @@
 
     let playerName = "";
 
-    // ✅ KEEP SCORES (NO AUTO RESET)
     let players = JSON.parse(localStorage.getItem("players")) || [];
 
     function startQuiz(){
@@ -135,6 +134,15 @@
       });
 
       document.getElementById("playersList").innerHTML = list;
+    }
+
+    /* ✅ RESET FUNCTION (ADDED ONLY) */
+    function resetPlayers(){
+      if(confirm("Reset all previous scores?")){
+        localStorage.removeItem("players");
+        players = [];
+        displayPlayers();
+      }
     }
 
     function showMessage(text){
@@ -261,6 +269,10 @@
   <p>🗣️ Nepal is incredibly diverse, with over 120 different languages spoken across the country.</p>
 
   <div id="playersList"></div>
+
+  <!-- ✅ RESET BUTTON ADDED -->
+  <button onclick="resetPlayers()">Reset All Players</button>
+
 </div>
 
 <div id="messageBox">
